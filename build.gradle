@@ -17,8 +17,9 @@ plugins {
 
 apply plugin: 'org.spongepowered.mixin'
 
-group = mod_version
-version = mod_group_id
+group = mod_group_id
+version = "${minecraft_version}_${mod_version}"
+archivesBaseName = mod_id
 
 base {
     archivesName = mod_id
@@ -167,9 +168,13 @@ dependencies {
     // This maps to ./libs/coolmod-${mc_version}-${coolmod_version}.jar
     // The group id is ignored when searching -- in this case, it is "blank"
     // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
-    implementation fg.deobf("dev.compactmods.compactmachines:compactmachines-forge:${compactmachines_version}")
-    //implementation fg.deobf("dev.compactmods.compactmachines:compactmachines:${compactmachines_api_version}")
-    compileOnly fg.deobf("dev.compactmods.compactmachines:core-api:${compactmachinescore_version}")
+
+    //5.2.0 (alpha)
+    ////implementation fg.deobf("dev.compactmods.compactmachines:compactmachines-forge:${compactmachines_version}")
+    ////compileOnly fg.deobf("dev.compactmods.compactmachines:core-api:${compactmachinescore_version}")
+
+    //5.1.0
+    implementation fg.deobf("dev.compactmods:compactmachines:${compactmachines_version}")
 
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
@@ -189,6 +194,7 @@ tasks.named('processResources', ProcessResources).configure {
             loader_version_range: loader_version_range,
             mod_id: mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
             mod_authors: mod_authors, mod_description: mod_description,
+            compactmachines_version_range: compactmachines_version_range,
     ]
 
     inputs.properties replaceProperties
