@@ -17,7 +17,7 @@ The current sizes are replaced by these:
 - 11³ -> 127³
 - 13³ -> 255³
 
-### Compact Machines 5.1.0
+### Compact Machines 5.2.0
 
 Not out yet
 
