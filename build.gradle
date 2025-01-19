@@ -144,8 +144,14 @@ repositories {
         url = uri("https://maven.pkg.github.com/CompactMods/CompactMachines")
         credentials {
             username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-            password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+            password = project.findProperty("gpr.token") ?: System.getenv("TOKEN")
         }
+    }
+
+    maven {
+        // location of the maven that hosts JEI files since January 2023
+        name = "Jared's maven"
+        url = uri("https://maven.blamejared.com/")
     }
 
 }
@@ -174,12 +180,18 @@ dependencies {
     ////compileOnly fg.deobf("dev.compactmods.compactmachines:core-api:${compactmachinescore_version}")
 
     //5.1.0
-    implementation fg.deobf("dev.compactmods:compactmachines:${compactmachines_version}")
+    //implementation fg.deobf("dev.compactmods.compactmachines:forge-api:${compactmachines_version}")
+    implementation fg.deobf("dev.compactmods.compactmachines:compactmachines-forge:${compactmachines_version}")
+
 
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
+    /*compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.4.1"))
+    implementation(jarJar("io.github.llamalad7:mixinextras-forge:0.4.1")) {
+        jarJar.ranged(it, "[0.4.1,)")
+    }*/
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 
