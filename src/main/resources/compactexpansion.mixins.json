@@ -6,6 +6,7 @@
     "refmap": "CompactExpansion.refmap.json",
     "mixins": [
         "CompactMachineBlockMixin",
+        "RoomEventHandlerMixin",
         "RoomSizeMixin"
     ],
     "client": [
