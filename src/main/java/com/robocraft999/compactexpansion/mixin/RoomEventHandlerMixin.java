@@ -29,7 +29,7 @@ public class RoomEventHandlerMixin {
             cir.setReturnValue(false);
         } else if (level instanceof ServerLevel compactDim) {
             CompactRoomData intern = CompactRoomData.get(compactDim);
-            cir.setReturnValue(intern.streamRooms().anyMatch(room -> room.getRoomBounds().contains(target)));
+            cir.setReturnValue(intern.streamRooms().anyMatch(room -> room.getRoomBounds().inflate(1).contains(target)));
         } else {
             cir.setReturnValue(false);
         }
