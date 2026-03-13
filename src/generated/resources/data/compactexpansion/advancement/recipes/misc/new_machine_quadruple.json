@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_recipe": {
+      "conditions": {
+        "items": [
+          {
+            "items": "compactmachines:wall"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "compactexpansion:new_machine_quadruple"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "compactexpansion:new_machine_quadruple"
+    ]
+  }
+}
