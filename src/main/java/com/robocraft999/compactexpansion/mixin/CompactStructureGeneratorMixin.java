@@ -27,28 +27,20 @@ public abstract class CompactStructureGeneratorMixin {
     @Unique
     private static void compactExpansion$generateChunkgenBlocks(LevelAccessor world, AABB aabb) {
         int minSectionX = SectionPos.blockToSectionCoord(Mth.floor(aabb.minX));
-        int maxX = Mth.floor(aabb.maxX - 1.0E-7);
-        int maxSectionX = SectionPos.blockToSectionCoord(maxX);
+        int maxSectionX = SectionPos.blockToSectionCoord(Mth.floor(aabb.maxX));
 
         int minSectionY = SectionPos.blockToSectionCoord(Mth.floor(aabb.minY));
-        int maxY = Mth.floor(aabb.maxY - 1.0E-7);
-        int maxSectionY = SectionPos.blockToSectionCoord(maxY);
+        int maxSectionY = SectionPos.blockToSectionCoord(Mth.floor(aabb.maxY));
 
         int minSectionZ = SectionPos.blockToSectionCoord(Mth.floor(aabb.minZ));
-        int maxZ = Mth.floor(aabb.maxZ - 1.0E-7);
-        int maxSectionZ = SectionPos.blockToSectionCoord(maxZ);
+        int maxSectionZ = SectionPos.blockToSectionCoord(Mth.floor(aabb.maxZ));
 
-        for (int sx = minSectionX; sx <= maxSectionX; sx++) {
-            for (int sy = minSectionY; sy <= maxSectionY; sy++) {
-                for (int sz = minSectionZ; sz <= maxSectionZ; sz++) {
-
-                    int sectionMinX = SectionPos.sectionToBlockCoord(sx);
-                    int sectionMinY = SectionPos.sectionToBlockCoord(sy);
-                    int sectionMinZ = SectionPos.sectionToBlockCoord(sz);
-
-                    int x = Math.min(maxX, sectionMinX + 15);
-                    int y = Math.min(maxY, sectionMinY + 15);
-                    int z = Math.min(maxZ, sectionMinZ + 15);
+        for (int sx = minSectionX; sx < maxSectionX; sx++) {
+            for (int sy = minSectionY; sy < maxSectionY; sy++) {
+                for (int sz = minSectionZ; sz < maxSectionZ; sz++) {
+                    int x = SectionPos.sectionToBlockCoord(sx) + 15;
+                    int y = SectionPos.sectionToBlockCoord(sy) + 15;
+                    int z = SectionPos.sectionToBlockCoord(sz) + 15;
 
                     world.setBlock(new BlockPos(x, y, z), Blocks.DIRT.defaultBlockState(), 7);
                 }
@@ -70,7 +62,7 @@ public abstract class CompactStructureGeneratorMixin {
             }
 
             compactExpansion$generateChunkgenBlocks(world, machineInternal);
-            //works too but is 4x more blocks
+            //works too but is 4096x more blocks
             //BlockPos.betweenClosedStream(machineInternal).forEach((p) -> world.setBlock(p, Blocks.DIRT.defaultBlockState(), 7));
 
             BlockPos.betweenClosedStream(machineInternal).forEach((p) -> world.setBlock(p, Blocks.AIR.defaultBlockState(), 7));

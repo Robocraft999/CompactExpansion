@@ -29,6 +29,16 @@ java {
     toolchain.languageVersion = JavaLanguageVersion.of(17)
 }
 
+sourceSets {
+    test {
+        java.srcDir 'src/test/java'
+        resources.srcDir 'src/test/resources'
+
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
+
 minecraft {
     // The mappings can be changed at any time and must be in the following format.
     // Channel:   Version:
@@ -90,6 +100,7 @@ minecraft {
             mods {
                 "${mod_id}" {
                     source sourceSets.main
+                    source sourceSets.test
                 }
             }
         }
@@ -231,6 +242,10 @@ tasks.named('jar', Jar).configure {
 
     // This is the preferred method to reobfuscate your jar file
     finalizedBy 'reobfJar'
+}
+
+processTestResources {
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
 }
 
 tasks.withType(JavaCompile).configureEach {
